@@ -7,4 +7,4 @@ The first step for that project is a CLI program that should work flawless and d
 After the first part I plan to add GUI using QT library, and finally, the project will appear as an iOS app developed with UIKit.
 
 ## Outcomes
-By completing all steps of my project I hope to develop as a developer and have a fascinating app in the portfolio.
+By completing all steps of my project I hope to grow as a developer and have a fascinating app in the portfolio.
