@@ -1,12 +1,13 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include "length.h"
 
 float pointLoad [10] [2]; //pointLoad array is used to store forces acting on a beam
 float distributedLoad [5] [2]; //distributedLoad array is used to store distributed load, where magnitude per length is stored (N/m) and length of acting
 float beamLength; //Length of a beam
 
-void getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
+oid getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
     bool flag = false;
 
     while(!flag){
@@ -15,8 +16,8 @@ void getBeamLength(){ //Gets length of a beam and checks if the inputted value i
     std::cout << std::endl;
 
     if (beamLength <= 0){
-        std::cout << "INAVLID INPUT" << std::endl;
-        std::cout << "Please try again";
+        std::cout << std::endl <<"INAVLID INPUT" << std::endl;
+        std::cout << "Please try again"<< std::endl;
     }
     else 
         flag = true;
@@ -34,18 +35,23 @@ void forceInput (){
     bool lengthCheckFlag = false;
     bool directionFlag = false;
     bool magnitudeFlag = false;
+    bool initialFlag = false;
+    bool answerFlag = false;
     std::string usersAnswer; 
 
+    while (!initialFlag){
+    
     std::cout << "Any point loads for Your beam? (Yes/No)" << std::endl;
     std::cin >> usersAnswer;
 
+    if (usersAnswer == "Yes"){
 
     int i = 0; //i is used to fill the array with forces
     std::string upOrDown;
     while (usersAnswer == "Yes"){
         
         while (!magnitudeFlag){
-        std::cout << "Enter a force magnitude: "; //User is asked to enter magnitude of a force
+        std::cout << "Enter force magnitude: "; //User is asked to enter magnitude of a force
         std::cin >> pointLoad [i] [0];
         if (pointLoad [i] [0] > 0)
 
@@ -53,7 +59,7 @@ void forceInput (){
 
         else{
             std::cout << "ERROR: INVALID INPUT" << std::endl;
-            std::cout << "Please try again" << std::endl;
+            std::cout << "Please try again" << std::endl << std::endl;
         }
         }
         magnitudeFlag = false;
@@ -69,8 +75,8 @@ void forceInput (){
             directionFlag = true;
         }
         else{
-            std::cout << "ERROR: INVALID INPUT" << std::endl;
-            std::cout << "Please try again" << std::endl;
+            std::cout << std::endl <<"ERROR: INVALID INPUT" << std::endl;
+            std::cout << "Please try again" << std::endl << std::endl;
         }
         }
 
@@ -83,24 +89,42 @@ void forceInput (){
         lengthCheckFlag = lengthCheck(pointLoad [i] [1]);
         
         if(!lengthCheckFlag){
-            std::cout << "INVALID INPUT" << std::endl;
-            std::cout << "Please, try again";
+            std::cout << std::endl << "INVALID INPUT" << std::endl;
+            std::cout << "Please try again" << std::endl << std::endl;
         }
         }
 
         i++;
         lengthCheckFlag = false;
 
+        while (!answerFlag){
         std::cout << "More point loads to add? (Yes/No): "; //Checks if more forces expected for input
         std::cin >> usersAnswer;
         std::cout << std::endl;
-        if (usersAnswer == "No")
+        if (usersAnswer == "No"){
         std::cout << "Proceeding to distributed load...";
+        answerFlag = true;
+        }
+        else if (usersAnswer == "Yes")
+            answerFlag = true;
         else if (usersAnswer != "Yes" && usersAnswer != "No")
-        std::cout << "ERROR: Invalid inpiut";
-    }
+        std::cout << std::endl << "INVALID INPUT" << std::endl;
+        std::cout << "Please try again" << std::endl << std::endl;
+        }
 
-    
+        initialFlag = true;
+    }
+        }
+       else if (usersAnswer == "No"){
+            initialFlag = true;
+            std::cout << std::endl << "Proceeding to distributed load...";
+       }
+
+       else {
+           std::cout << std::endl <<"INVALID INPUT" << std::endl;
+           std::cout << "Please try again" << std::endl << std::endl;
+       }
+    }
 }
 
 int main(){
