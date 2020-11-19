@@ -7,7 +7,7 @@ float pointLoad [10] [2]; //pointLoad array is used to store forces acting on a 
 float distributedLoad [5] [2]; //distributedLoad array is used to store distributed load, where magnitude per length is stored (N/m) and length of acting
 float beamLength; //Length of a beam
 
-oid getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
+void getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
     bool flag = false;
 
     while(!flag){
