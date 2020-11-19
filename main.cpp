@@ -1,11 +1,38 @@
-#ifndef FORCEINPUT_H_INCLUDE
-#define FORCEINPUT_H_INCLUDE
-
 #include <iostream>
+#include <cmath>
 #include <string>
+//#include "length.h"
+//#include "forceInput.h"
 
-extern float pointLoad [10] [2];
-extern float beamLength;
+
+float pointLoad [10] [2]; //pointLoad array is used to store forces acting on a beam
+float distributedLoad [5] [2]; //distributedLoad array is used to store distributed load, where magnitude per length is stored (N/m) and length of acting
+float beamLength; //Length of a beam
+
+
+ 
+    float getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
+    bool flag = false;
+    float length;
+
+    while(!flag){
+    std::cout << "Please enter length of the beam in meters: ";
+    std::cin >> length;
+    std::cout << std::endl;
+
+    if (length <= 0){
+        std::cout << std::endl <<"INAVLID INPUT" << std::endl;
+        std::cout << "Please try again"<< std::endl;
+    }
+    else 
+        flag = true;
+    }
+    
+    return length; 
+}
+
+
+
 
 bool lengthCheck (float distance){  //function to check if distance of a force is valid
     if (distance > beamLength || distance < 0)
@@ -110,4 +137,11 @@ void forceInput (){
     }
 }
 
-#endif
+int main(){
+
+    getBeamLength();
+
+    forceInput();
+
+    return 0;
+}
