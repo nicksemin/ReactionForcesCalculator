@@ -39,7 +39,6 @@ void forceInput (){
     std::cout << "Any point loads for Your beam? (Yes/No)" << std::endl;
     std::cin >> usersAnswer;
 
-    if (usersAnswer == "Yes"){
 
     int i = 0; //i is used to fill the array with forces
     std::string upOrDown;
@@ -55,6 +54,7 @@ void forceInput (){
         else{
             std::cout << "ERROR: INVALID INPUT" << std::endl;
             std::cout << "Please try again" << std::endl;
+        }
         }
         magnitudeFlag = false;
         
@@ -84,7 +84,7 @@ void forceInput (){
         
         if(!lengthCheckFlag){
             std::cout << "INVALID INPUT" << std::endl;
-            std::cout << "Please, try again" << ;
+            std::cout << "Please, try again";
         }
         }
 
@@ -100,8 +100,7 @@ void forceInput (){
         std::cout << "ERROR: Invalid inpiut";
     }
 
-    }
-    }
+    
 }
 
 int main(){
