@@ -1,28 +1,39 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-#include "length.h"
+
+
 
 float pointLoad [10] [2]; //pointLoad array is used to store forces acting on a beam
 float distributedLoad [5] [2]; //distributedLoad array is used to store distributed load, where magnitude per length is stored (N/m) and length of acting
 float beamLength; //Length of a beam
 
-void getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
+
+ 
+    void getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
     bool flag = false;
+    float length;
 
     while(!flag){
     std::cout << "Please enter length of the beam in meters: ";
-    std::cin >> beamLength;
+    std::cin >> length;
     std::cout << std::endl;
 
-    if (beamLength <= 0){
+    if (length <= 0){
         std::cout << std::endl <<"INAVLID INPUT" << std::endl;
         std::cout << "Please try again"<< std::endl;
     }
-    else 
+    else {
+ 
         flag = true;
+        beamLength = length;
     }
-}
+    }
+    }
+
+
+
+
 
 bool lengthCheck (float distance){  //function to check if distance of a force is valid
     if (distance > beamLength || distance < 0)
@@ -92,6 +103,8 @@ void forceInput (){
             std::cout << std::endl << "INVALID INPUT" << std::endl;
             std::cout << "Please try again" << std::endl << std::endl;
         }
+        else 
+            lengthCheckFlag = true;
         }
 
         i++;
@@ -105,13 +118,16 @@ void forceInput (){
         std::cout << "Proceeding to distributed load...";
         answerFlag = true;
         }
-        else if (usersAnswer == "Yes")
+        else if (usersAnswer == "Yes"){
             answerFlag = true;
-        else if (usersAnswer != "Yes" && usersAnswer != "No")
+        }
+        else if (usersAnswer != "Yes" && usersAnswer != "No"){
         std::cout << std::endl << "INVALID INPUT" << std::endl;
         std::cout << "Please try again" << std::endl << std::endl;
         }
+        }
 
+        answerFlag = false;
         initialFlag = true;
     }
         }
@@ -126,6 +142,12 @@ void forceInput (){
        }
     }
 }
+
+void distributedInput(){
+
+}
+
+
 
 int main(){
 
