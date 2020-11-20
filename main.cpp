@@ -1,8 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-//#include "length.h"
-//#include "forceInput.h"
+
 
 
 float pointLoad [10] [2]; //pointLoad array is used to store forces acting on a beam
@@ -11,7 +10,7 @@ float beamLength; //Length of a beam
 
 
  
-    float getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
+    void getBeamLength(){ //Gets length of a beam and checks if the inputted value is valid
     bool flag = false;
     float length;
 
@@ -24,12 +23,14 @@ float beamLength; //Length of a beam
         std::cout << std::endl <<"INAVLID INPUT" << std::endl;
         std::cout << "Please try again"<< std::endl;
     }
-    else 
+    else {
+ 
         flag = true;
+        beamLength = length;
     }
-    
-    return length; 
-}
+    }
+    }
+
 
 
 
@@ -102,6 +103,8 @@ void forceInput (){
             std::cout << std::endl << "INVALID INPUT" << std::endl;
             std::cout << "Please try again" << std::endl << std::endl;
         }
+        else 
+            lengthCheckFlag = true;
         }
 
         i++;
@@ -115,13 +118,16 @@ void forceInput (){
         std::cout << "Proceeding to distributed load...";
         answerFlag = true;
         }
-        else if (usersAnswer == "Yes")
+        else if (usersAnswer == "Yes"){
             answerFlag = true;
-        else if (usersAnswer != "Yes" && usersAnswer != "No")
+        }
+        else if (usersAnswer != "Yes" && usersAnswer != "No"){
         std::cout << std::endl << "INVALID INPUT" << std::endl;
         std::cout << "Please try again" << std::endl << std::endl;
         }
+        }
 
+        answerFlag = false;
         initialFlag = true;
     }
         }
@@ -136,6 +142,12 @@ void forceInput (){
        }
     }
 }
+
+void distributedInput(){
+
+}
+
+
 
 int main(){
 
