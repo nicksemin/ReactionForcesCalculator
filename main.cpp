@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <iomanip>
 
 
 
@@ -298,13 +299,13 @@ void calculations(){
 //I define positive moment as one that rotates CCW
     for (int i = 0; i < pointLoadCounter; i++){
         if (pointLoad [i] [1] < leftSupport){
-            Moment += -1 * (leftSupport - pointLoad [i] [1]) * pointLoad [i] [0] * pointLoad [i] [2];
-            Load += pointLoad [i] [0] * pointLoad [i] [2];
+            Moment += (-1 * (leftSupport - pointLoad [i] [1]) * pointLoad [i] [0] * pointLoad [i] [2]);
+            Load += (pointLoad [i] [0] * pointLoad [i] [2]);
             
         }
         else if (pointLoad [i] [1] > leftSupport){
-            Moment += (pointLoad [i] [1] - leftSupport) * pointLoad [i] [0] * pointLoad [i] [2];
-            Load += pointLoad [i] [0] * pointLoad [i] [2];
+            Moment += ((pointLoad [i] [1] - leftSupport) * pointLoad [i] [0] * pointLoad [i] [2]);
+            Load += (pointLoad [i] [0] * pointLoad [i] [2]);
         }
 
     }
@@ -312,17 +313,16 @@ void calculations(){
     for (int i = 0; i < distributedLoadCounter; i++ ){
 
         float lengthOfLoad = distributedLoad [i] [2] - distributedLoad [i] [1];//It is critical to have actual distance of the distributed load, because it will be used later to calculate moment
-        float actualLoad = lengthOfLoad * distributedLoad [i] [0];//This valuye will be used later to calculate reaction forces
         float distanceToCenter = distributedLoad [i] [1] + lengthOfLoad/2;
 
         if (distanceToCenter < leftSupport){
-            Moment += -1* actualLoad * (leftSupport - distanceToCenter) * distributedLoad [i] [3];
-            Load += actualLoad * distributedLoad [i] [3];
+            Moment += (-1* distributedLoad [i] [0] * (leftSupport - distanceToCenter) * distributedLoad [i] [3]);
+            Load += (distributedLoad [i] [0] * distributedLoad [i] [3]);
         }
 
         else if (distanceToCenter > leftSupport){
-            Moment += actualLoad * (distanceToCenter - leftSupport) * distributedLoad [i] [3];
-            Load += actualLoad * distributedLoad [i] [3];
+            Moment += (distributedLoad [i] [0] * (distanceToCenter - leftSupport) * distributedLoad [i] [3]);
+            Load += (distributedLoad [i] [0] * distributedLoad [i] [3]);
         }
     }
     //Since moment around left support is known now, reaction force for right support can be easily solved: 0 = Moment - 
@@ -338,18 +338,18 @@ void calculations(){
     leftReactionForce = -Load - rightReactionForce;
 
     if (rightReactionForce > 0){
-    std::cout <<"The rection force at right support is: "<< abs(rightReactionForce)<< "kN"<<" Upwards"<< std::endl;
+    std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2) << abs(rightReactionForce)<< "kN"<<" Upwards"<< std::endl;
     }
     else if (rightReactionForce < 0){
-        std::cout <<"The rection force at right support is: "<< abs(rightReactionForce)<< "kN"<<" Downwards"<< std::endl;
+        std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2)<< abs(rightReactionForce)<< "kN"<<" Downwards"<< std::endl;
     }
     if (leftReactionForce > 0){
-    std::cout <<"The rection force at left support is: "<< abs(rightReactionForce)<< "kN"<<" Upwards"<< std::endl;
+    std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)<< abs(leftReactionForce)<< "kN"<<" Upwards"<< std::endl;
     }
     else if (leftReactionForce < 0){
-        std::cout <<"The rection force at left support is: "<< abs(rightReactionForce)<< "kN"<<" Downwards"<< std::endl;
+        std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)  << abs(leftReactionForce)<< "kN"<<" Downwards"<< std::endl;
     }
-
+}
 int main(){
 
     getBeamLength();
