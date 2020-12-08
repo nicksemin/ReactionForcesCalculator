@@ -4,7 +4,7 @@ Reaction forces play crucial role in steel structures, therefore any mechanical 
 
 ## Future plans
 The first step for that project is a CLI program that should work flawless and deal with unwanted input. 
-After the first part I plan to add GUI using QT library, and finally, the project will appear as an iOS app developed with UIKit.
+After the first part I plan to add GUI using Qt software, and finally, the project will appear as an iOS app developed with UIKit.
 
 ## Outcomes
 By completing all steps of my project I hope to grow as a developer and have a fascinating app in the portfolio.
