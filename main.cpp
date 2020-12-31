@@ -332,10 +332,15 @@ void calculations(){
         rightReactionForce = Moment/(rightSupport - leftSupport);
     }
     else if (Moment < 0){
-        rightReactionForce = -1 * Moment/(rightSupport - leftSupport);
+        rightReactionForce = -1 * (Moment/(rightSupport - leftSupport));
     }
-    
-    leftReactionForce = -Load - rightReactionForce;
+  
+    if (Load > 0){
+    leftReactionForce = Load - rightReactionForce;
+    }
+    else if (Load < 0){
+        leftReactionForce = abs(Load) - rightReactionForce;
+    }
 
     if (rightReactionForce > 0){
     std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2) << abs(rightReactionForce)<< "kN"<<" Upwards"<< std::endl;
