@@ -2,6 +2,7 @@
 #include <cmath>
 #include <string>
 #include <iomanip>
+#include "functions.h"
 
 struct pointLoad {
 
@@ -49,20 +50,10 @@ int distributedLoadCounter = 0;
  
         flag = true;
         beamLength = length;
+
     }
     }
     }
-
-
-
-
-
-bool lengthCheck (float distance){  //function to check if distance of a force is valid
-    if (distance > beamLength || distance < 0)
-        return false;
-    else 
-        return true;
-}
 
 void forceInput (){
     bool lengthCheckFlag = false;
@@ -100,18 +91,8 @@ void forceInput (){
         while (!directionFlag){
         std::cout << "Direction of the force (Up/Down): "; //Direction is used to calculate moment later
         std::cin >> upOrDown;
-        if (upOrDown == "Down"){
-            Storage1[i].direction = -1;
-            directionFlag = true;
-        }
-        else if (upOrDown == "Up"){
-            directionFlag = true;
-            Storage1[i].direction = 1;
-        }
-        else{
-            std::cout << std::endl <<"ERROR: INVALID INPUT" << std::endl;
-            std::cout << "Please try again" << std::endl << std::endl;
-        }
+
+        directionPointCheck(upOrDown, directionFlag, Storage1[i].direction);
         }
 
         directionFlag = false;
@@ -120,7 +101,7 @@ void forceInput (){
         std::cout << std::endl << "Distance from the left edge: ";
         std::cin >> Storage1[i].distanceLeft;
 
-        lengthCheckFlag = lengthCheck(Storage1[i].distanceLeft);
+        lengthCheckFlag = lengthCheck(Storage1[i].distanceLeft, beamLength);
         
         if(!lengthCheckFlag){
             std::cout << std::endl << "INVALID INPUT" << std::endl;
@@ -139,32 +120,17 @@ void forceInput (){
         std::cout << "More point loads to add? (Yes/No): "; //Checks if more forces expected for input
         std::cin >> usersAnswer;
         std::cout << std::endl;
-        if (usersAnswer == "No"){
-        std::cout << "Proceeding to distributed load...";
-        answerFlag = true;
-        }
-        else if (usersAnswer == "Yes"){
-            answerFlag = true;
-        }
-        else if (usersAnswer != "Yes" && usersAnswer != "No"){
-        std::cout << std::endl << "INVALID INPUT" << std::endl;
-        std::cout << "Please try again" << std::endl << std::endl;
-        }
+        
+        pointLoadsCheck (usersAnswer, answerFlag);
         }
 
         answerFlag = false;
         initialFlag = true;
     }
         }
-       else if (usersAnswer == "No"){
-            initialFlag = true;
-            std::cout << std::endl << "Proceeding to distributed load...";
-       }
-
-       else {
-           std::cout << std::endl <<"INVALID INPUT" << std::endl;
-           std::cout << "Please try again" << std::endl << std::endl;
-       }
+        else if (usersAnswer == "No"){
+            
+        }
     }
 }
 
@@ -209,14 +175,14 @@ void distributedInput(){
         while (!loadLengthFlag1){
         std::cout << "Starting point (in meters, from left edge of a beam):"; //Direction is used to calculate moment later
         std::cin >> Storage2[i].startLeft;
-            loadLengthFlag1 = lengthCheck (Storage2[i].startLeft);
+            loadLengthFlag1 = lengthCheck (Storage2[i].startLeft, beamLength);
 
         if (loadLengthFlag1){
             while (!loadLengthFlag2){
             std::cout << "Ending point (in meters, from left edge of a beam):"; //Direction is used to calculate moment later
             std::cin >> Storage2[i].endLeft;
             
-            loadLengthFlag2 = lengthCheck (Storage2[i].endLeft);
+            loadLengthFlag2 = lengthCheck (Storage2[i].endLeft, beamLength);
             if (loadLengthFlag2 && Storage2[i].endLeft > Storage2[i].startLeft){
                 loadLengthFlag2 = true;
             }
@@ -358,20 +324,9 @@ void calculations(){
     else if (Load < 0){
         leftReactionForce = abs(Load) - rightReactionForce;
     }
-
-    if (rightReactionForce > 0){
-    std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2) << abs(rightReactionForce)<< "kN"<<" Upwards"<< std::endl;
-    }
-    else if (rightReactionForce < 0){
-        std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2)<< abs(rightReactionForce)<< "kN"<<" Downwards"<< std::endl;
-    }
-    if (leftReactionForce > 0){
-    std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)<< abs(leftReactionForce)<< "kN"<<" Upwards"<< std::endl;
-    }
-    else if (leftReactionForce < 0){
-        std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)  << abs(leftReactionForce)<< "kN"<<" Downwards"<< std::endl;
-    }
+     output (rightReactionForce, leftReactionForce);
 }
+
 int main(){
 
     getBeamLength();
