@@ -1,6 +1,4 @@
-#include <iostream>
-#include <iomanip>
-#include <cmath>
+
 
 void directionPointCheck (std::string answer, bool& flag, int& direction){
 
@@ -36,19 +34,19 @@ void directionPointCheck (std::string answer, bool& flag, int& direction){
         void output (float rightForce, float leftForce){
     
     if (rightForce > 0){
-    std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2) << abs(rightForce)<< "kN"<<" Upwards"<< std::endl;
+    std::cout <<"The reaction force at right support is: "<< std::fixed << std::setprecision(2) << abs(rightForce)<< "kN"<<" Upwards"<< std::endl;
     }
 
     else if (rightForce < 0){
-        std::cout <<"The rection force at right support is: "<< std::fixed << std::setprecision(2)<< abs(rightForce)<< "kN"<<" Downwards"<< std::endl;
+        std::cout <<"The reaction force at right support is: "<< std::fixed << std::setprecision(2)<< abs(rightForce)<< "kN"<<" Downwards"<< std::endl;
     }
 
     if (leftForce > 0){
-    std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)<< abs(leftForce)<< "kN"<<" Upwards"<< std::endl;
+    std::cout <<"The reaction force at left support is: "<< std::fixed << std::setprecision(2)<< abs(leftForce)<< "kN"<<" Upwards"<< std::endl;
     }
 
     else if (leftForce < 0){
-        std::cout <<"The rection force at left support is: "<< std::fixed << std::setprecision(2)  << abs(leftForce)<< "kN"<<" Downwards"<< std::endl;
+        std::cout <<"The reaction force at left support is: "<< std::fixed << std::setprecision(2)  << abs(leftForce)<< "kN"<<" Downwards"<< std::endl;
     }
     
     }
